@@ -1,8 +1,8 @@
 import cron from "node-cron";
-import { fetchLatestNews } from "./services/newsFetcher.js";
-import { curateDailyArticles, markAsPosted } from "./services/contentCurator.js";
-import { generateNewsTweet, generateNoonTweet } from "./services/tweetGenerator.js";
-import { postTweet } from "./services/twitterPoster.js";
+import { newsFetcher } from "../services/newsFetcher.js";
+import { curateDailyArticles, markAsPosted } from "../services/contentCurator.js";
+import { generateNewsTweet, generateNoonTweet } from "../services/tweetGenerator.js";
+import { postTweet } from "../services/twitterPoster.js";
 
 /**
  * Schedule tweets
@@ -38,8 +38,8 @@ export function scheduleTweets() {
  */
 async function postDailyNewsTweet() {
     try {
-        const techNews = await fetchLatestNews("tech", 5);
-        const businessNews = await fetchLatestNews("business", 5);
+        const techNews = await newsFetcher("tech", 5);
+        const businessNews = await newsFetcher("business", 5);
 
         const combined = [...techNews, ...businessNews];
         const curated = curateDailyArticles(combined, 1); // 1 per slot (8 AM / 6 PM)
