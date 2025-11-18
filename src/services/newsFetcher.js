@@ -43,7 +43,7 @@ async function fetchImageFromLink(url) {
 /**
  * Fetch latest news for a category
  */
-export async function fetchLatestNews(category = "tech", limit = 5) {
+export async function newsFetcher(category = "tech", limit = 5) {
     const feeds = RSS_FEEDS[category] || [];
     let allItems = [];
 
